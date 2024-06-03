@@ -12,6 +12,8 @@ class CMCClient(HttpClient):
     
     async def get_latest(self):
         
+        """Функция вывода топ 100 монет с Coinmarketcap"""
+        
         async with self._session.get('/v1/cryptocurrency/listings/latest') as resp:
             
             result = await resp.json()
@@ -20,6 +22,8 @@ class CMCClient(HttpClient):
     
     async def get_coin(self, coin_id:int):
         
+        """Выод информации о монете по ID"""
+        
         async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"id":coin_id}) as resp:
             
             result = await resp.json()
@@ -27,7 +31,9 @@ class CMCClient(HttpClient):
             return result["data"][str(coin_id)]
     
     
-    async def get_price_info(self, coin_slug=None, coin_symbole=None):
+    async def get_price_info(self, coin_slug=None, coin_symbol=None):
+        
+        """Вывод информации о монете по слагу(имени) или символу монеты."""
         
         try:
             if coin_slug:
@@ -37,7 +43,7 @@ class CMCClient(HttpClient):
                     key = ''.join(result.keys())
                     return result[key]['data']
             else:
-                async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"symole": coin_symbole}) as resp:
+                async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"symbol": coin_symbol}) as resp:
                     
                     result = await resp.json()
                     key = ''.join(result.keys())
