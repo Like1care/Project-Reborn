@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from src.Client import CMCClient
-from src.config import settings
+from src_cmc.Client import CMCClient
+from src_cmc.config import settings
 
 
 app = FastAPI()
@@ -17,3 +17,13 @@ async def get_cryptocoins():
 async def get_coin(coin_id:int):
     
     return await cmc_client.get_coin(coin_id=coin_id)
+
+@app.get("/cryptocoins?slug={slug}")
+async def get_price_info(slug:str):
+    
+    return await cmc_client.get_price_info(slug=slug)
+
+@app.get("/cryptocoins?symbol={sym}")
+async def get_price_info(sym:str):
+    pass
+    #return await cmc_client.get_price_info(symbol=sym)

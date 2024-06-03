@@ -25,3 +25,12 @@ class CMCClient(HttpClient):
             result = await resp.json()
             
             return result["data"][str(coin_id)]
+    
+    
+    async def get_price_info(self, coin_slug:str):
+        
+        async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"slug": coin_slug}) as resp:
+            
+            result = await resp.json()
+            key = ''.join(result.keys())
+            return result[key]['data']
