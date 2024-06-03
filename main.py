@@ -25,5 +25,5 @@ async def get_price_info(slug:str):
 
 @app.get("/cryptocoins?symbol={sym}")
 async def get_price_info(sym:str):
-    pass
-    #return await cmc_client.get_price_info(symbol=sym)
+    
+    return await cmc_client.get_price_info(symbol=sym)
