@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from src_cmc.Client import CMCClient
 from src_cmc.config import settings
-
+from logs.logger import get_log
 
 app = FastAPI()
 
