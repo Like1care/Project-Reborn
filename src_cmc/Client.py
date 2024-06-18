@@ -1,6 +1,5 @@
 from aiohttp import ClientSession
-# Use Logger here !
-
+#Query запросы работают некорректно !!!!
 
 class HttpClient:
     
@@ -39,13 +38,13 @@ class CMCClient(HttpClient):
         
         try:
             if coin_slug:
-                async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"slug": coin_slug}) as resp:
+                async with self._session.get('/v2/cryptocurrency/quotes/latest?slug', params={"slug": coin_slug}) as resp:
                     
                     result = await resp.json()
                     key = ''.join(result.keys())
                     return result[key]['data']
             else:
-                async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"symbol": coin_symbol}) as resp:
+                async with self._session.get('/v2/cryptocurrency/quotes/latest?symbol', params={"symbol": coin_symbol}) as resp:
                     
                     result = await resp.json()
                     key = ''.join(result.keys())

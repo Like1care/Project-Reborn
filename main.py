@@ -3,6 +3,10 @@ from src_cmc.Client import CMCClient
 from src_cmc.config import settings
 from logs.logger import get_log
 
+
+#Query запросы работают некорректно !!!!
+
+
 app = FastAPI()
 
 cmc_client = CMCClient(base_url="https://pro-api.coinmarketcap.com", api_key=settings.CMC_KEY)
@@ -29,7 +33,7 @@ async def get_price_info(slug:str):
     
     return await cmc_client.get_price_info(slug=slug)
 
-@app.get("/cryptocoins?symbol={sym}")
+@app.get("/cryptocoins?symbloe={sym}")
 async def get_price_info(sym:str):
     
     """Ручка для вывода информации о монете с помощью query запроса символа (symbol) монеты"""
