@@ -26,16 +26,9 @@ async def get_coin(coin_id:int):
     
     return await cmc_client.get_coin(coin_id=coin_id)
 
-@app.get("/cryptocoins?slug={slug}")
-async def get_price_info(slug:str):
-    
-    """Ручка для вывода информации о монете  с помощью query запроса слага (slug) монеты"""
-    
-    return await cmc_client.get_price_info(slug=slug)
 
-@app.get("/cryptocoins?symbloe={sym}")
-async def get_price_info(sym:str):
+@app.get("/coin_info/{symbol}")
+async def get_price(symbol:str):
     
-    """Ручка для вывода информации о монете с помощью query запроса символа (symbol) монеты"""
-    
-    return await cmc_client.get_price_info(symbol=sym)
+    return await cmc_client.get_price(coin_symbol=symbol)
+
