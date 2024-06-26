@@ -1,5 +1,5 @@
 from aiohttp import ClientSession
-#Query запросы работают некорректно !!!!
+
 
 class HttpClient:
     
