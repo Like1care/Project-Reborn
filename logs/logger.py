@@ -1,17 +1,46 @@
-from loguru import logger
+import logging
+import sys
+from fastapi import Request
 
 
-logger.remove()
 
-logger.add(
-    "logs.json",
-    format="{time:MMMM D, YYYY - HH:mm:ss} {level} --- {message}",
-    level="DEBUG",
-    serialize=True,
-    rotation="10 MB"
+
+# Get logger
+logger = logging.getLogger()
+
+formatter = logging.Formatter(
+    
+    fmt="	%(asctime)s - %(levelname)s - %(message)s"
 )
 
-def get_log(func_name:str, req_name:str, cryptocurrency:str):
+
+# Creating hanlers
+stream_handler = logging.StreamHandler(sys.stdout)
+file_handler = logging.FileHandler('app.log')
+
+
+
+# Format handlers
+stream_handler.setFormatter(formatter)
+file_handler.setFormatter(formatter)
+
+
+# Add handlers to logger
+logger.handlers = [stream_handler, file_handler]
+logger.setLevel(logging.INFO)
+
+
+# Middleware logger for api application
+async def logit(request: Request, call_next):
     
-    logger.debug(f"Request: {req_name} Cryptocurrency: {cryptocurrency} ---{func_name}---")
+    log_dict = {
+        
+        'url': request.url.path,
+        'method': request.method
+    }
     
+    logger.info(log_dict, extra=log_dict)
+    
+    response = await call_next(request)
+    
+    return response

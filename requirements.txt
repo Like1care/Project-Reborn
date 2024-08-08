@@ -20,9 +20,12 @@ httpx==0.27.0
 idna==3.7
 iniconfig==2.0.0
 Jinja2==3.1.4
+logtail-python==0.3.0
+loguru==0.7.2
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 mdurl==0.1.2
+msgpack==1.0.8
 multidict==6.0.5
 orjson==3.10.3
 packaging==24.0

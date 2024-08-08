@@ -21,22 +21,22 @@ class CMCClient(HttpClient):
             
             return result["data"]
     
-    async def get_coin(self, coin_id:int):
+    async def get_coin(self, choice:int):
         
-        """Выод информации о монете по ID"""
         
-        async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"id":coin_id}) as resp:
+        async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"id":choice}) as resp:
             
             result = await resp.json()
             
-            return result["data"][str(coin_id)]
+            return result["data"][str(choice)]
     
     
-    async def get_price(self, coin_symbol:str):
+    async def get_price(self, coin_symbol:str=None):
         
 
         async with self._session.get('/v2/cryptocurrency/quotes/latest', params={"symbol":coin_symbol}) as resp:
                 
             result = await resp.json()
-                
-            return result["data"][str(coin_symbol)]
+            
+            
+            return result["data"][coin_symbol][0]["quote"]["USD"]
